@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+*{
+  font-family: Inter;
+}
+body {
+  background-color: #F5F5F5;
+}
+
+.custom-pagination .swiper-pagination-bullet {
+  width: 57px;
+  height: 8px;
+  border-radius: 999px;
+  background: white;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.custom-pagination .swiper-pagination-bullet-active {
+  opacity: 1;
+  background: white;
+  cursor: auto;
+}
