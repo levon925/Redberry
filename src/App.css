@@ -7,17 +7,29 @@ body {
   background-color: #F5F5F5;
 }
 
-.custom-pagination .swiper-pagination-bullet {
-  width: 57px;
-  height: 8px;
-  border-radius: 999px;
-  background: white;
-  opacity: 0.5;
-  cursor: pointer;
+.swiper-pagination-bullet {
+  width: 57px !important;
+  height: 8px !important;
+  border-radius: 999px !important;
+  background: white !important;
+  opacity: 0.5 !important;
+  cursor: pointer !important;
 }
 
-.custom-pagination .swiper-pagination-bullet-active {
-  opacity: 1;
-  background: white;
-  cursor: auto;
+/* absolute z-20 bottom-[78px] left-1/2 -translate-x-1/2 flex gap-[12px] */
+
+.swiper-pagination-bullet-active {
+  opacity: 1 !important;
+  background: white !important;
+  cursor: auto !important;
+}
+
+.swiper-pagination {
+  height: 8px !important;
+  position: absolute !important;
+  z-index: 20 !important;
+  bottom: 78px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: auto !important;
 }
