@@ -5,7 +5,7 @@ import design from '../../assets/filter/catergories/design.svg'
 import marketing from '../../assets/filter/catergories/marketing.svg'
 import datascience from '../../assets/filter/catergories/data-science.svg'
 
-function Categories({data, selected, toggle}) {
+function Categories({data, selected, toggle, onClick}) {
   const icons = {
     development,
     business,
@@ -21,7 +21,8 @@ function Categories({data, selected, toggle}) {
         type="checkbox"
         className="hidden"
         checked={isActive}
-        onChange={() => toggle(data.name)}
+        onChange={() => toggle(data.name,data.id)}
+        onClick={onClick}
       />
 
       <div

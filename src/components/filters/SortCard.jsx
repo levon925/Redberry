@@ -5,6 +5,7 @@ import business from '../../assets/filter/catergories/business.svg'
 import design from '../../assets/filter/catergories/design.svg'
 import marketing from '../../assets/filter/catergories/marketing.svg'
 import datascience from '../../assets/filter/catergories/data-science.svg'
+import { Link } from 'react-router-dom'
 
 function SortCard({course}) {
     const icons = {
@@ -43,7 +44,7 @@ function SortCard({course}) {
                         <p className='text-[#8A8A8A] text-[12px] leading-[15px] font-medium'>Starting from</p>
                         <p className='text-[#141414] text-[24px] leading-[29px] font-semibold'>$<span>{Number(course.basePrice)}</span></p>
                     </div>
-                    <div className="px-[25px] py-[12px] bg-[#4F46E5] rounded-[8px] text-[#FFFFFF] font-medium text-[16px] leading-[24px] cursor-pointer">Details</div>
+                    <Link to={`/course/${course.id}`} className="px-[25px] py-[12px] bg-[#4F46E5] rounded-[8px] text-[#FFFFFF] font-medium text-[16px] leading-[24px] cursor-pointer">Details</Link>
                 </div>
             </div>
         </div>

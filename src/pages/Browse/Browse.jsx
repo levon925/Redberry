@@ -17,6 +17,9 @@ function Browse() {
     const [sort, setSort] = useState('newest')
     const [coursesMeta, setCoursesMeta] = useState([])
     const [topicsFilter, setTopicsFilter] = useState([])
+    const [categoriesFilter, setCategoriesFilter] = useState([])
+    const [instructorsFilter, setInstructorsFilter] = useState([])
+    const [filterCounter, setFilterCounter] = useState(0)
     
     useEffect(() => {
         fetch('https://api.redclass.redberryinternship.ge/api/categories')
@@ -26,12 +29,7 @@ function Browse() {
         })
         .catch(err => console.error(err))
 
-        fetch('https://api.redclass.redberryinternship.ge/api/topics')
-        .then(res => res.json())
-        .then(data => {
-            setTopics(data.data)
-        })
-        .catch(err => console.error(err))
+        
 
         fetch('https://api.redclass.redberryinternship.ge/api/instructors')
         .then(res => res.json())
@@ -49,7 +47,29 @@ function Browse() {
     }, [])
 
     useEffect(() => {
-        fetch(`https://api.redclass.redberryinternship.ge/api/courses?sort=${sort}&page=${page}`)
+        const topicsQuery = topicsFilter.map(id => `categories[]=${id}`).join('&')
+
+
+       
+        console.log("QUERY",topicsQuery, "Filter", topicsFilter);
+        
+        fetch(`https://api.redclass.redberryinternship.ge/api/topics?${topicsQuery}`)
+        .then(res => res.json())
+        .then(data => {
+            setTopics(data.data)
+        })
+        .catch(err => console.error(err))
+    }, [topicsFilter])
+
+    useEffect(() => {
+        const topicsQuery = topicsFilter.map(id => `categories[]=${id}`).join('&')
+        const categoriesQuery = categoriesFilter.map(id => `topics[]=${id}`).join('&')
+        const instructorsQuery = instructorsFilter.map(id => `instructors[]=${id}`).join('&')
+        
+        setFilterCounter(topicsFilter.length + categoriesFilter.length + instructorsFilter.length)
+        
+
+        fetch(`https://api.redclass.redberryinternship.ge/api/courses?sort=${sort}&page=${page}&${topicsQuery}&${categoriesQuery}&${instructorsQuery}`)
         .then(res => res.json())
         .then(data => {
             setCourses(data.data)
@@ -58,7 +78,26 @@ function Browse() {
             
         })
         .catch(err => console.error(err))
-    }, [page, sort])
+    }, [page, sort, topicsFilter, categoriesFilter, instructorsFilter])
+
+    const handleTopics = (id) => {
+        setTopicsFilter((prev) => prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id])
+        setCategoriesFilter([])
+        
+
+        
+    }
+    const handleCategories = (id) => {
+        setCategoriesFilter((prev) => prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id])
+        setTopicsFilter([])
+        
+    }
+    const handleInstructors = (id) => {
+        setInstructorsFilter((prev) => prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id])
+        
+    }
+
+    
 
     
   return (
@@ -80,12 +119,12 @@ function Browse() {
                         </div>
                     </div>
                     <div className="flex flex-col gap-[56px]">
-                        <FilterCard title="Categories" data={categories}/>
-                        <FilterCard title="Topics" data={topics}/>
-                        <FilterCard title="Instructor" data={instructors}/>
+                        <FilterCard title="Categories" data={categories} func={handleTopics}/>
+                        <FilterCard title="Topics" data={topics} func={handleCategories}/>
+                        <FilterCard title="Instructor" data={instructors} func={handleInstructors}/>
                     </div>
                 </div>
-                <div className="border-t pt-[16px] text-[#8A8A8A] text-[14px] leading-[17px] font-medium">0 Filters Active</div>
+                <div className="border-t pt-[16px] text-[#8A8A8A] text-[14px] leading-[17px] font-medium">{filterCounter} Filters Active</div>
             </div>
             <div className="flex flex-col gap-[32px] w-[1167px]">
                 <div className="flex justify-between items-center">

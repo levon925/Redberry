@@ -1,5 +1,6 @@
 import React from 'react'
 import Star from '../assets/card/star.png'
+import { Link } from 'react-router-dom'
 
 function CourseCard({course}) {
   return (
@@ -24,7 +25,7 @@ function CourseCard({course}) {
                     <p className='text-[#8A8A8A] text-[12px] leading-[15px] font-medium'>Starting from</p>
                     <p className='text-[#141414] text-[32px] leading-[39px] font-semibold'>$<span>{course.basePrice}</span></p>
                 </div>
-                <div className="px-[25px] py-[17px] bg-[#4F46E5] rounded-[8px] text-[#FFFFFF] font-medium text-[20px] leading-[24px] cursor-pointer">Details</div>
+                <Link to={`/course/${course.id}`} className="px-[25px] py-[17px] bg-[#4F46E5] rounded-[8px] text-[#FFFFFF] font-medium text-[20px] leading-[24px] cursor-pointer">Details</Link>
             </div>
         </div>
     </div>
