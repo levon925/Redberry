@@ -4,14 +4,19 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
 import Home from './pages/Home/Home'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Browse from './pages/Browse/Browse'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
-      <Home />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/browse" element={<Browse />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
